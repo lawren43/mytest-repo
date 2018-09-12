@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--宣告log4j.xml的文件型別定義(Document Type Definition, DTD) -->
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<!--所有log4j的設定都必須放在 <log4j:configuration>...</log4j:configuration>之內 -->
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+	<!-- Appenders -->
+	<appender name="Console" class="org.apache.log4j.ConsoleAppender">
+		<!-- 設定appender的layout為PatternLayout -->
+		<layout class="org.apache.log4j.PatternLayout"> 
+			<!-- 設定layout的pattern，參數名為conversionPattern，value為想要的輸出格式 -->
+			<param name="conversionPattern" value="%-d{yyyy-MM-dd HH:mm:ss} [%C{5}]-[%p] %m%n" />
+		</layout>
+	</appender>
+
+	<!-- DailyRollingFileAppender的第一個log檔並不會加上DatePattern的樣式， --> 
+	<!-- 必須在下一次週期產生的log檔才會加上DatePattern的樣式。 所以基本上當天產生的log檔算是第一次的log檔，並不會加上Pattern樣式 -->
+	<appender name="File" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="logs/server_log.txt" /> <!--檔案路徑 -->
+		<!--DatePattern是DailyRollingFileAppender的一個重要參數，用來設定檔案輸出的週期 -->
+		<param name="DatePattern" value="'.'yyyy-MM-dd-HH'.log'" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%-d{yyyy-MM-dd HH:mm:ss,SSS} [%C{5}]-[%p] %m%n" />
+		</layout>
+	</appender>
+
+
+	<appender-ref ref="Console" />
+	<appender-ref ref="File" />
+
+
+	<!--RootLogger(全專案套用) -->
+	<!--rootLogger的LEVEL設定為DEBUG，DEBUG以上等級的資訊也都會寫出 -->
+	<!--主要class搭配：public static Logger logger = Logger.getLogger(MyPractice.class); -->
+	<root>
+		<priority value="DEBUG" /> <!--印出INFO以上的資訊 -->
+		<appender-ref ref="Console" /> <!--將rootLogger的appender參考至剛設定好的Console appender -->
+		<appender-ref ref="File" /> <!--將rootLogger的appender參考至剛設定好的File appender -->
+	</root>
+
+	<logger name="tw.blogger.springtech.springmvc.mvc">
+		<level value="debug" />
+		<appender-ref ref="Console" />
+	</logger>
+
+
+</log4j:configuration>
