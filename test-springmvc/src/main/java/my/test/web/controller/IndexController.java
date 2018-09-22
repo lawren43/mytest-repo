@@ -14,7 +14,7 @@ public class IndexController {
 	public String index(Model model) {
 
 		logger.info("test");
-		model.addAttribute("username", "Lawren-23");
+		model.addAttribute("username", "Lawren");
 		return "index";
 
 	}
