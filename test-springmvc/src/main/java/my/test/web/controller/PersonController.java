@@ -1,4 +1,4 @@
-package com.journaldev.spring;
+package my.test.web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
