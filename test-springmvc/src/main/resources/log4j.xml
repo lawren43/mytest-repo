@@ -11,7 +11,7 @@
 		<!-- 設定appender的layout為PatternLayout -->
 		<layout class="org.apache.log4j.PatternLayout"> 
 			<!-- 設定layout的pattern，參數名為conversionPattern，value為想要的輸出格式 -->
-			<param name="conversionPattern" value="%-d{yyyy-MM-dd HH:mm:ss} [%C{5}]-[%p] %m%n" />
+			<param name="conversionPattern" value="%-d{yyyy-MM-dd HH:mm:ss} [%p] [%C{5}] %m%n" />
 		</layout>
 	</appender>
 
@@ -22,7 +22,7 @@
 		<!--DatePattern是DailyRollingFileAppender的一個重要參數，用來設定檔案輸出的週期 -->
 		<param name="DatePattern" value="'.'yyyy-MM-dd-HH'.txt'" />
 		<layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="%-d{yyyy-MM-dd HH:mm:ss,SSS} [%C{5}]-[%p] %m%n" />
+			<param name="ConversionPattern" value="%-d{yyyy-MM-dd HH:mm:ss,SSS} [%p] [%C{5}] %m%n" />
 		</layout>
 	</appender>
 
