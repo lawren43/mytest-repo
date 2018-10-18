@@ -12,46 +12,16 @@
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 
-	<context:component-scan base-package="com.journaldev.spring" />
-	
-	<tx:annotation-driven transaction-manager="transactionManager"/>
-	
+	<context:component-scan base-package="com.journaldev.spring.model" />
+	<context:component-scan base-package="com.journaldev.spring.service" />
 
-	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
-		<property name="driverClassName" value="org.postgresql.Driver" />
-		<property name="url" value="jdbc:postgresql://localhost:5432/test_db" />
-		<property name="username" value="test_user" />
-		<property name="password" value="test_password" />
-	</bean>
+<!--  
+	<import resource="db-hibernate.xml"/>
+-->
+	<import resource="db-jpa.xml"/>
 
-	<!-- Hibernate 4 SessionFactory Bean definition -->
-	<bean id="hibernate4AnnotatedSessionFactory"
-		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-		<property name="dataSource" ref="dataSource" />
-		<property name="annotatedClasses">
-			<list>
-				<value>com.journaldev.spring.model.Person</value>
-			</list>
-		</property>
-		<property name="hibernateProperties">
-			<props>
-				<prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect
-				</prop>
-				<prop key="hibernate.show_sql">true</prop>
-			</props>
-		</property>
-	</bean>
-	
-	<bean id="personDAO" class="com.journaldev.spring.dao.PersonDAOImpl">
-		<property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
-	</bean>
 	<bean id="personService" class="com.journaldev.spring.service.PersonServiceImpl">
 		<property name="personDAO" ref="personDAO"></property>
 	</bean>
-
-	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
-		<property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
-	</bean>
-
-		
+ 
 </beans>
