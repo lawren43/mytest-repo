@@ -20,8 +20,10 @@
 -->
 	<import resource="db-jpa.xml"/>
 
+<!--  
 	<bean id="personService" class="com.journaldev.spring.service.PersonServiceImpl">
 		<property name="personDAO" ref="personDAO"></property>
 	</bean>
- 
+ -->
+
 </beans>

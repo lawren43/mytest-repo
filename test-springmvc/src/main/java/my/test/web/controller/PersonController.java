@@ -15,13 +15,14 @@ import com.journaldev.spring.service.PersonService;
 @Controller
 public class PersonController {
 	
+	@Autowired(required=true)
 	private PersonService personService;
 	
-	@Autowired(required=true)
-	@Qualifier(value="personService")
-	public void setPersonService(PersonService ps){
-		this.personService = ps;
-	}
+	//@Autowired(required=true)
+	//@Qualifier(value="personService")
+	//public void setPersonService(PersonService ps){
+		//this.personService = ps;
+	//}
 	
 	@RequestMapping(value = "/persons", method = RequestMethod.GET)
 	public String listPersons(Model model) {
