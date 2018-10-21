@@ -17,14 +17,15 @@ public class PersonDAOImpl implements PersonDAO {
 	
 	private static final Logger logger = LoggerFactory.getLogger(PersonDAOImpl.class);
 
+	//@PersistenceContext(unitName= "LOCAL_PERSISTENCE")
 	@PersistenceContext
 	EntityManager entityManager;
-
+/*
     protected EntityManager getEntityManager(){
         return this.entityManager;
     }
  
-
+*/
 	@Override
 	public void addPerson(Person p) {
 		
