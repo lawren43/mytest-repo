@@ -6,6 +6,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Entity bean with JPA annotations
@@ -17,6 +21,9 @@ import javax.persistence.Table;
 @Table(name="PERSON")
 public class Person {
 
+	@Transient
+	private final static Logger logger = LoggerFactory.getLogger(Person.class);
+	
 	@Id
 	@Column(name="id")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -25,6 +32,18 @@ public class Person {
 	private String name;
 	
 	private String country;
+
+	
+	public Person() {
+		super();
+	}
+
+	public Person(int id, String name, String country) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.country = country;
+	}
 
 	public int getId() {
 		return id;

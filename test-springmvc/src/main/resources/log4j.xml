@@ -36,7 +36,7 @@
 	<!--rootLogger的LEVEL設定為DEBUG，DEBUG以上等級的資訊也都會寫出 -->
 	<!--主要class搭配：public static Logger logger = Logger.getLogger(MyPractice.class); -->
 	<root>
-		<priority value="debug" /> <!--印出INFO以上的資訊 -->
+		<priority value="error" /> <!--印出INFO以上的資訊 -->
 		<appender-ref ref="Console" /> <!--將rootLogger的appender參考至剛設定好的Console appender -->
 		<appender-ref ref="File" /> <!--將rootLogger的appender參考至剛設定好的File appender -->
 	</root>
