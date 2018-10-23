@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -19,6 +20,7 @@ import org.slf4j.LoggerFactory;
  */
 @Entity
 @Table(name="PERSON")
+@NamedQuery(query = "Select p from Person p where p.name=:name", name = "find person by name")
 public class Person {
 
 	@Transient

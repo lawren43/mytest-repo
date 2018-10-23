@@ -20,7 +20,12 @@
          <property name="jboss.entity.manager.jndi.name" value="java:/myEntityManager"/>
        </properties>
 	-->
-	
+
+<!--  
+      <class>com.tutorialspoint.eclipselink.entity.Employee</class>
+      <class>com.tutorialspoint.eclipselink.entity.Department</class>
+-->
+
 	<!-- jdbc configuration -->
     <properties>
       <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
