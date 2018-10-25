@@ -113,11 +113,15 @@ public class TestJpaStandalone {
 	}
 
 	public static void listByJPQL() {
+		System.out.println("================");
+		System.out.println("listByJPQL");
+
 		EntityManagerFactory emFactory = Persistence.createEntityManagerFactory("LOCAL_PERSISTENCE");
 		EntityManager entityManager = emFactory.createEntityManager();
 		EntityTransaction transaction = entityManager.getTransaction();
 		transaction.begin();
 
+		System.out.println("use query");
 		Query query = entityManager.createQuery("from Person p");
 		List<Person> personList = query.getResultList();
 		for (Person item : personList) {
@@ -130,60 +134,86 @@ public class TestJpaStandalone {
 			System.out.println("resultList: " + item.toString());
 		}
 
+		System.out.println("use TypedQuery");
+		TypedQuery<Person> typedQuery = entityManager.createQuery("select p.name from Person p", Person.class);
+		List<Person> resultList2 = typedQuery.getResultList();
+		for (Person item : resultList2) {
+			System.out.println("resultList2: " + item.toString());
+		}
+
 		transaction.commit();
 		entityManager.close();
 		emFactory.close();
 
 	}
-	
+
+	public static void listByNamedQuery() {
+		System.out.println("================");
+		System.out.println("listByNamedQuery");
+		EntityManagerFactory emFactory = Persistence.createEntityManagerFactory("LOCAL_PERSISTENCE");
+		EntityManager entityManager = emFactory.createEntityManager();
+		EntityTransaction transaction = entityManager.getTransaction();
+		transaction.begin();
+
+		System.out.println("use NamedQuery");
+		Query query = entityManager.createNamedQuery("list all person");
+		List<Person> personList = query.getResultList();
+		for (Person item : personList) {
+			System.out.println("personList: " + item.toString());
+		}
+
+		transaction.commit();
+		entityManager.close();
+		emFactory.close();
+
+	}
+
 	public static void findByCriteria() {
 		EntityManagerFactory emFactory = Persistence.createEntityManagerFactory("LOCAL_PERSISTENCE");
 		EntityManager entityManager = emFactory.createEntityManager();
 		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-	   CriteriaQuery<Object> criteriaQuery = criteriaBuilder.createQuery();
-	   Root<Person> from = criteriaQuery.from(Person.class);
+		CriteriaQuery<Object> criteriaQuery = criteriaBuilder.createQuery();
+		Root<Person> from = criteriaQuery.from(Person.class);
 
-		   System.out.println("Select all records");
-		   CriteriaQuery<Object> select = criteriaQuery.select(from);
-		   TypedQuery<Object> typedQuery = entityManager.createQuery(select);
-		   List<Object> resultList = typedQuery.getResultList();
+		System.out.println("Select all records");
+		CriteriaQuery<Object> select = criteriaQuery.select(from);
+		TypedQuery<Object> typedQuery = entityManager.createQuery(select);
+		List<Object> resultList = typedQuery.getResultList();
 
-		   
-			for (Object item : resultList) {
-				System.out.println("personList: " + ((Person)item).toString());
-			}
+		for (Object item : resultList) {
+			System.out.println("personList: " + ((Person) item).toString());
+		}
 
-			  System.out.println("Select all records by follow ordering");
-			   CriteriaQuery<Object> select1 = criteriaQuery.select(from);
-			   select1.orderBy(criteriaBuilder.asc(from.get("id")));
-			   TypedQuery<Object> typedQuery1 = entityManager.createQuery(select);
-			   List<Object> resultList1 = typedQuery1.getResultList();
+		System.out.println("Select all records by follow ordering");
+		CriteriaQuery<Object> select1 = criteriaQuery.select(from);
+		select1.orderBy(criteriaBuilder.asc(from.get("id")));
+		TypedQuery<Object> typedQuery1 = entityManager.createQuery(select);
+		List<Object> resultList1 = typedQuery1.getResultList();
 
-				for (Object item : resultList1) {
-					System.out.println("personList: " + ((Person)item).toString());
-				}
-		   
-			entityManager.close();
-			emFactory.close();
+		for (Object item : resultList1) {
+			System.out.println("personList: " + ((Person) item).toString());
+		}
+
+		entityManager.close();
+		emFactory.close();
 	}
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		/*
-		 * createPerson(); 
-		 * findPerson(); 
-		 * updatePerson(); 
-		 * findPerson();
-		 * deletePerson(); 
-		 * findPerson(); 
-		 * listByJPQL();
-		findPersonByName();
-		 */
+
+		//createPerson();
+		//findPerson();
+		//updatePerson();
+		//findPerson();
+		//deletePerson();
+		//findPerson();
+		//listByJPQL();
+		//findPersonByName();
+		// findByCriteria();
+		listByNamedQuery();
 		
-		
-		findByCriteria();
 	}
 
 }
