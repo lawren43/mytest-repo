@@ -87,5 +87,11 @@ public class Person implements java.io.Serializable {
 	public void setPersonDetailses(Set<PersonDetails> personDetailses) {
 		this.personDetailses = personDetailses;
 	}
+	
+	@Override
+	public String toString() {
+		return "id:"+id +", name:"+ name + ", country:"+country;
+		
+	}
 
 }
