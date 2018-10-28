@@ -17,17 +17,16 @@ CREATE DATABASE test_db
 /* create sequence */
 CREATE SEQUENCE public.seq_department_id;
 
-CREATE TABLE public.department
+CREATE TABLE department
 (
-   id integer DEFAULT nextval('seq_department_id'), 
-   name character varying(20), 
-   CONSTRAINT department_pk PRIMARY KEY (id)
-) 
-WITH (
-  OIDS = FALSE
+  id integer NOT NULL DEFAULT nextval('seq_department_id'),
+  name character varying(20),
+  CONSTRAINT department_pk PRIMARY KEY (id),
+  CONSTRAINT department_name_unique UNIQUE (name)
 )
-;
-
+WITH (
+  OIDS=FALSE
+);
 insert into department (name) values ('Information');
 insert into department (name) values ('Market');
 
@@ -51,6 +50,20 @@ WITH (
   OIDS = FALSE
 )
 ;
+REATE TABLE person
+(
+  id integer NOT NULL DEFAULT nextval('seq_person_id'),
+  name character varying(30),
+  country character varying(30),
+  department_id integer,
+  CONSTRAINT person_pk PRIMARY KEY (id),
+  CONSTRAINT department_id_fk FOREIGN KEY (department_id)
+      REFERENCES department (id),
+  CONSTRAINT person_name_unique UNIQUE (name)
+)
+WITH (
+  OIDS=FALSE
+);
 
 /* insert   */
 insert into Person (name, country, department_id) values ('Adam', 'Taiwan', 1);

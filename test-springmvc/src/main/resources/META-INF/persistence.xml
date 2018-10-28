@@ -21,10 +21,12 @@
        </properties>
 	-->
 
-<!--  
-      <class>com.tutorialspoint.eclipselink.entity.Employee</class>
-      <class>com.tutorialspoint.eclipselink.entity.Department</class>
--->
+		<class>com.journaldev.spring.model.Person</class>
+<!-- 		
+		<class>cht.hioss.test.entity.PersonDetails</class>
+		<class>cht.hioss.test.entity.Department</class>
+ -->
+ 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 
 	<!-- jdbc configuration -->
     <properties>

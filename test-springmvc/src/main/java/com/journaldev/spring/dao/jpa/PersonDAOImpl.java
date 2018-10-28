@@ -4,10 +4,12 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.RollbackException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import com.journaldev.spring.dao.PersonDAO;
 import com.journaldev.spring.model.Person;
@@ -28,9 +30,14 @@ public class PersonDAOImpl implements PersonDAO {
 */
 	@Override
 	public void addPerson(Person p) {
-		
 		entityManager.persist(p);
 		logger.info("Person saved successfully, Person Details="+p);
+		//logger.info("setRollbackOnly");
+		//TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+		
+		logger.info("throw runtime exception");
+		throw new RuntimeException("test runtime exception");
+
 	}
 
 	@Override

@@ -10,13 +10,13 @@
 
 
 	<context:component-scan base-package="com.journaldev.spring.dao.jpa" />
-<!--
+
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="persistenceUnitName" value="LOCAL_PERSISTENCE"/>
     </bean>
--->
 
- 
+
+<!-- 
 	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="packagesToScan" value="com.journaldev.spring.model" />
@@ -30,6 +30,7 @@
 			</props>
 		</property>
 	</bean>
+-->
 
 	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="org.postgresql.Driver" />
@@ -38,20 +39,29 @@
 		<property name="password" value="test_password" />
 	</bean>
 
-
+  
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
 
+<!--
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"/>
+-->
 	<tx:annotation-driven transaction-manager="transactionManager" />
-
+<!--  
+<tx:advice id="txAdvice" transaction-manager="transactionManager">
+    <tx:attributes>
+    <tx:method name="*" rollback-for="RuntimeException"/>
+    </tx:attributes>
+</tx:advice>
+-->
 	<!-- BeanPostProcessor that processes PersistenceUnit and PersistenceContext annotations, for injection of the corresponding 
 		JPA resources EntityManagerFactory and EntityManager
 		--> 
 	<bean id="persistenceExceptionTranslationPostProcessor" class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
 
-    
+<!--  
 	<bean id="personDAO" class="com.journaldev.spring.dao.jpa.PersonDAOImpl" />
-
+-->
 
 </beans>
