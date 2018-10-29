@@ -47,7 +47,7 @@ public class TestJpa2 {
 	}
 
 	
-	@Test
+	//@Test
 	//@Transactional
 	public void testDuplicatePerson() {
 		
@@ -69,6 +69,26 @@ public class TestJpa2 {
 			logger.error("catch exception: {} ", e);
 		}
 		
+	}
+	
+	@Test
+	@Transactional
+	public void testDTO() {
+		logger.info("add p1");
+		Person p1 = new Person();
+		p1.setCountry("Canada");
+		p1.setName("Merrick");
+		personService.addPerson(p1);
+		
+		p1.setName("Merrick2");
+		logger.info("change p1:"+p1.toString());
+
+		logger.info("add p2");
+		Person p2 = new Person();
+		p2.setCountry("Canada");
+		p2.setName("Flix");
+		personService.addPerson(p2);
+
 	}
 	
 	

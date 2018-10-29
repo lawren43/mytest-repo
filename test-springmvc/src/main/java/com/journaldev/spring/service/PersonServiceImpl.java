@@ -29,7 +29,8 @@ public class PersonServiceImpl implements PersonService {
 	@Transactional
 	public void addPerson(Person p) {
 		
-		try {
+		
+		//try {
 		this.personDAO.addPerson(p);
 
 		//logger.info("setRollbackOnly");
@@ -37,13 +38,37 @@ public class PersonServiceImpl implements PersonService {
 		
 		//logger.info("throw runtime exception");
 		//throw new RollbackException("test runtime exception");
-		}
-		catch (Exception e) {
-			logger.info("catch exception: {}", e);
-			throw e;
+		//}
+		//catch (Exception e) {
+			//logger.info("catch exception: {}", e);
+			//throw e;
 			//TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-		}
+		//}
 
+	}
+
+	@Override
+	@Transactional
+	public void addPersonRollbackByException(Person p) {
+		
+		this.personDAO.addPerson(p);
+
+		//logger.info("setRollbackOnly");
+		//TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+		
+		logger.info("throw runtime exception");
+		throw new RollbackException("test runtime exception");
+
+	}
+
+	@Override
+	@Transactional
+	public void addPersonRollbackByApi(Person p) {
+		
+		this.personDAO.addPerson(p);
+
+		logger.info("setRollbackOnly");
+		TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 	}
 
 	@Override

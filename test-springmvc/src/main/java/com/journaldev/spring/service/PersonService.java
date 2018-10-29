@@ -11,5 +11,6 @@ public interface PersonService {
 	public List<Person> listPersons();
 	public Person getPersonById(int id);
 	public void removePerson(int id);
-	
+	public void addPersonRollbackByException(Person p);
+	public void addPersonRollbackByApi(Person p);
 }

@@ -35,8 +35,8 @@ public class PersonDAOImpl implements PersonDAO {
 		//logger.info("setRollbackOnly");
 		//TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 		
-		logger.info("throw runtime exception");
-		throw new RuntimeException("test runtime exception");
+		//logger.info("throw runtime exception");
+		//throw new RuntimeException("test runtime exception");
 
 	}
 
