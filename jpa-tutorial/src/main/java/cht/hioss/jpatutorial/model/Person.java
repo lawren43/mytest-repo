@@ -22,12 +22,14 @@ public class Person implements Serializable {
 	private String name;
 
 	//bi-directional many-to-one association to Department
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
+	//@JoinColumn(name="department_id", referencedColumnName="id")
 	private Department department;
 
 	//bi-directional one-to-one association to PersonDetail
-	@OneToOne
-	@JoinColumn(name="id", referencedColumnName="person_id")
+	@OneToOne(mappedBy="person", fetch = FetchType.LAZY)
+	//@OneToOne(fetch = FetchType.LAZY)
+	//@JoinColumn(name="id", referencedColumnName="person_id")
 	private PersonDetail personDetail;
 
 	public Person() {
@@ -75,8 +77,7 @@ public class Person implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Person [id=" + id + ", country=" + country + ", name=" + name + ", department=" + (department==null?"":department.getId())
-				+ ", personDetail=" + personDetail + "]";
+		return "Person [id=" + id + ", country=" + country + ", name=" + name + "]";
 	}
 
 }

@@ -19,7 +19,7 @@ import org.slf4j.LoggerFactory;
 
 import cht.hioss.jpatutorial.model.Department;
 import cht.hioss.jpatutorial.model.Person;
-
+import cht.hioss.jpatutorial.model.PersonDetail;
 
 /**
  * @author lawren
@@ -27,21 +27,30 @@ import cht.hioss.jpatutorial.model.Person;
  */
 public class TestJPA1 {
 
-	final static Logger logger = LoggerFactory.getLogger(TestJPA1.class); 
+	final static Logger logger = LoggerFactory.getLogger(TestJPA1.class);
 	int person_id = 2;
 
 	@Test
-	public void testQuery() {
+	public void testQueryFromPerson() throws InterruptedException {
 
 		EntityManagerFactory emFactory = Persistence.createEntityManagerFactory("jpa-tutorial-unit");
 		EntityManager entityManager = emFactory.createEntityManager();
 		
+		logger.info("begin find person");
 		Person person = entityManager.find(Person.class, person_id);
 		if (person != null) {
 			logger.info("find person: " + person.toString());
+			
+			logger.info("begin find department");
 			Department department = person.getDepartment();
 			if (department != null) {
 				logger.info("find department: " + department.toString());
+			}
+			
+			logger.info("begin find personDetail");
+			PersonDetail pd = person.getPersonDetail();
+			if (pd != null) {
+				logger.info("find personDetail: " + pd.toString());
 			}
 
 		} else {
@@ -50,33 +59,61 @@ public class TestJPA1 {
 
 		entityManager.close();
 		emFactory.close();
-		
+
 		assertNotNull(person);
 
 	}
 
-	@Test
+	
+	//@Test
+	public void testQueryFromDepartment() {
+
+		EntityManagerFactory emFactory = Persistence.createEntityManagerFactory("jpa-tutorial-unit");
+		EntityManager entityManager = emFactory.createEntityManager();
+
+		Department department = entityManager.find(Department.class, 1);
+		if (department != null) {
+			logger.info("find department: " + department.toString());
+/*
+			List<Person> persons = department.getPersons();
+			if (persons != null) {
+				for (Person p : persons) {
+					logger.info("find person: " + p.toString());
+				}
+			}
+*/
+		} else {
+			logger.info("find: 0");
+		}
+
+		entityManager.close();
+		emFactory.close();
+
+		assertNotNull(department);
+
+	}
+
+	//@Test
 	public void testAdd() {
 
 		EntityManagerFactory emFactory = Persistence.createEntityManagerFactory("jpa-tutorial-unit");
 
 		EntityManager entityManager = emFactory.createEntityManager();
 		entityManager.getTransaction().begin();
-		
+
 		Person person = new Person();
 		person.setCountry("U.S.");
 		person.setName("Usher");
 		try {
-		entityManager.persist(person);
-		logger.info("persist person:"+person.toString());
-		}
-		catch (Exception e) {
-			logger.error("catch exception:",e);
+			entityManager.persist(person);
+			logger.info("persist person:" + person.toString());
+		} catch (Exception e) {
+			logger.error("catch exception:", e);
 		}
 		entityManager.getTransaction().commit();
 		entityManager.close();
 		emFactory.close();
-		
+
 		assertNotNull(person);
 
 	}

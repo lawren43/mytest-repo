@@ -1,6 +1,7 @@
 package cht.hioss.jpatutorial.model;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
 
 
@@ -20,8 +21,10 @@ public class PersonDetail implements Serializable {
 
 	private String title;
 
+
 	//bi-directional one-to-one association to Person
-	@OneToOne(mappedBy="personDetail")
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="person_id", referencedColumnName="id")
 	private Person person;
 
 	public PersonDetail() {
@@ -53,7 +56,6 @@ public class PersonDetail implements Serializable {
 
 	@Override
 	public String toString() {
-		return "PersonDetail [id=" + id + ", title=" + title + ", person=" + person.getId() + "]";
+		return "PersonDetail [id=" + id + ", title=" + title + "]";
 	}
-
 }
