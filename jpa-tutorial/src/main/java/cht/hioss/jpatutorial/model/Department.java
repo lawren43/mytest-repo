@@ -21,8 +21,8 @@ public class Department implements Serializable {
 	private String name;
 
 	//bi-directional many-to-one association to Person
-	//@OneToMany(mappedBy="department", fetch = FetchType.LAZY)
-	//private List<Person> persons;
+	@OneToMany(mappedBy="department", fetch = FetchType.LAZY)
+	private List<Person> persons;
 
 	public Department() {
 	}
@@ -42,7 +42,7 @@ public class Department implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-/*
+
 	public List<Person> getPersons() {
 		return this.persons;
 	}
@@ -65,12 +65,7 @@ public class Department implements Serializable {
 		return person;
 	}
 
-	@Override
-	public String toString() {
-		return "Department [id=" + id + ", name=" + name + ", persons no=" + (persons==null? "null":"n") + "]";
-	}
 
-*/
 	@Override
 	public String toString() {
 		return "Department [id=" + id + ", name=" + name + "]";
