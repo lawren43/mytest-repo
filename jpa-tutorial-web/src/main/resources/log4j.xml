@@ -15,7 +15,7 @@
 		<!-- 設定appender的layout為PatternLayout -->
 		<layout class="org.apache.log4j.PatternLayout"> 
 			<!-- 設定layout的pattern，參數名為conversionPattern，value為想要的輸出格式 -->
-			<param name="conversionPattern" value="%-d{yyyy-MM-dd HH:mm:ss} [%p] [%C{6}] %m%n" />
+			<param name="conversionPattern" value="%-d{yyyy-MM-dd HH:mm:ss} [%p] [%C{5}] %m%n" />
 		</layout>
 	</appender>
 
@@ -35,7 +35,6 @@
 	<appender-ref ref="File" />
  -->
  
- 
 <!-- 
 	<logger name="org.springframework">
 		<level value="info" />
@@ -43,23 +42,17 @@
 	</logger>
  -->
 
-	<logger name="org.hibernate">
-		<level value="error" />
-		<appender-ref ref="Console" />
-	</logger>
-
-	<logger name="engine.jdbc">
-		<level value="error" />
-		<appender-ref ref="Console" />
-	</logger>
-
+ 
 	<!--RootLogger(全專案套用) -->
 	<!--rootLogger的LEVEL設定為DEBUG，DEBUG以上等級的資訊也都會寫出 -->
 	<!--主要class搭配：public static Logger logger = Logger.getLogger(MyPractice.class); -->
 	<root>
 		<priority value="info" /> <!--印出INFO以上的資訊 -->
 		<appender-ref ref="Console" /> <!--將rootLogger的appender參考至剛設定好的Console appender -->
-		
+		<!--將rootLogger的appender參考至剛設定好的File appender 
+		<appender-ref ref="File" /> 
+		-->
 	</root>
+
  
 </log4j:configuration>
