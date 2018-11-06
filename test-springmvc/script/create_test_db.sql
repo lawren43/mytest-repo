@@ -56,6 +56,8 @@ REATE TABLE person
   name character varying(30),
   country character varying(30),
   department_id integer,
+  modify_date time with time zone,
+  version integer DEFAULT 0,
   CONSTRAINT person_pk PRIMARY KEY (id),
   CONSTRAINT department_id_fk FOREIGN KEY (department_id)
       REFERENCES department (id),
@@ -66,10 +68,10 @@ WITH (
 );
 
 /* insert   */
-insert into Person (name, country, department_id) values ('Adam', 'Taiwan', 1);
-insert into Person (name, country, department_id) values ('Bob', 'China', 1);
-insert into Person (name, country, department_id) values ('Chris', 'Thai', 2);
-insert into Person (name, country) values ('Davie', 'U.S.' );
+insert into Person (name, country, department_id, modify_date) values ('Adam', 'Taiwan', 1, 'now');
+insert into Person (name, country, department_id, modify_date) values ('Bob', 'China', 1, 'now');
+insert into Person (name, country, department_id, modify_date) values ('Chris', 'Thai', 2, 'now');
+insert into Person (name, country, modify_date) values ('Davie', 'U.S.', 'now' );
 
 
 /* select  */

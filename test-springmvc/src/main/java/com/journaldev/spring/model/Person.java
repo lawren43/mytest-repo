@@ -1,5 +1,7 @@
 package com.journaldev.spring.model;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,8 +9,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.persistence.Version;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,6 +45,12 @@ public class Person {
 	private String name;
 
 	private String country;
+	
+	@Column(name="modify_date")
+	private Date modifyDate;
+	
+	@Version
+	private int version;
 
 	public Person() {
 		super();
@@ -76,8 +87,33 @@ public class Person {
 		this.country = country;
 	}
 
+	public Date getModifyDate() {
+		return modifyDate;
+	}
+
+	public void setModifyDate(Date modifyDate) {
+		this.modifyDate = modifyDate;
+	}
+
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
+	}
+
+	@PreUpdate
+	@PrePersist
+	public void preAddOrUpdate() {
+		this.modifyDate = new Date();
+		logger.info("preAddOrUpdate() update modifyDate to :"+ this.modifyDate);
+	}
+
+
 	@Override
 	public String toString() {
-		return "id=" + id + ", name=" + name + ", country=" + country;
+		return "id=" + id + ", name=" + name + ", country=" + country + ", version=" + version;
 	}
+	
 }

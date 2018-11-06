@@ -33,8 +33,8 @@ import com.journaldev.spring.service.PersonService;
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
 @TransactionConfiguration(defaultRollback = false)
-public class TestJpa2 {
-	private final static Logger logger = LoggerFactory.getLogger(TestJpa2.class);
+public class TestJpaWithSpring {
+	private final static Logger logger = LoggerFactory.getLogger(TestJpaWithSpring.class);
 	
 	@Autowired
     private PersonDAO personDAO; 
@@ -71,9 +71,9 @@ public class TestJpa2 {
 		
 	}
 	
-	@Test
-	@Transactional
-	public void testDTO() {
+	//@Test
+	//@Transactional
+	public void testDuplicateExcetpion() {
 		logger.info("add p1");
 		Person p1 = new Person();
 		p1.setCountry("Canada");
@@ -91,6 +91,19 @@ public class TestJpa2 {
 
 	}
 	
+	@Test
+	public void testUpdate() {
+		
+		Person p1 = personService.getPersonById(2);
+		Person p2 = personService.getPersonById(2);
+
+		p1.setName(p1.getName() + "x1" );
+		personService.updatePerson(p1);
+
+		p2.setName(p2.getName() + "x2" );
+		personService.updatePerson(p2);
+		
+	}
 	
 	//@Test
 	//@Transactional
