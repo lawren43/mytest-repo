@@ -98,4 +98,10 @@ public class PersonServiceImpl implements PersonService {
 	}
 
 
+	@Override
+	@Transactional
+	public List<Object> findPersonAndDepartment() {
+		
+		return personDAO.findPersonAndDepartment();
+	}
 }

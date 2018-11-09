@@ -25,5 +25,7 @@ public interface PersonDAO {
 
 	public void deleteById(long entityId);
 
-
+	public List<Person> findAllByNameQuery();
+	
+	public List<Object> findPersonAndDepartment();
 }
