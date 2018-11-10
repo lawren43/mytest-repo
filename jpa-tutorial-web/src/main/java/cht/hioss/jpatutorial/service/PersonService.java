@@ -13,6 +13,7 @@ public interface PersonService {
 	public List<Person> listPersons();
 	public Person getPersonById(int id);
 	public void removePerson(int id);
+	public Person getPersonByName(String name);
 	
 	/* for test */
 	public void addPersonRollbackByException(Person p);

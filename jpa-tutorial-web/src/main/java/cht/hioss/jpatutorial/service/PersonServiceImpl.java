@@ -48,20 +48,19 @@ public class PersonServiceImpl implements PersonService {
 
 	}
 
+	// throw exception will cause transaction to rollback
 	@Override
 	@Transactional
 	public void addPersonRollbackByException(Person p) {
 		
 		this.personDAO.create(p);
 
-		//logger.info("setRollbackOnly");
-		//TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-		
 		logger.info("throw runtime exception");
 		throw new RollbackException("test runtime exception");
 
 	}
 
+	// call setRollbackOnly() to cause transaction to rollback
 	@Override
 	@Transactional
 	public void addPersonRollbackByApi(Person p) {
@@ -95,6 +94,11 @@ public class PersonServiceImpl implements PersonService {
 	public void removePerson(int id) {
 		Person person = this.personDAO.findOne(id);
 		this.personDAO.delete(person);
+	}
+	
+	public Person getPersonByName(String name) {
+		Person person = this.personDAO.findByName(name);
+		return person;
 	}
 
 

@@ -24,6 +24,8 @@ public interface PersonDAO {
 	public void delete(Person entity);
 
 	public void deleteById(long entityId);
+	
+	public Person findByName(String name);
 
 
 }

@@ -1,6 +1,7 @@
 package cht.hioss.jpatutorial.model;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
 
 
@@ -9,7 +10,14 @@ import javax.persistence.*;
  * 
  */
 @Entity
-@NamedQuery(name="Person.findAll", query="SELECT p FROM Person p")
+@Table(name = "PERSON")
+@NamedQueries(
+	{ 
+		@NamedQuery(name = "Person.findAll", query="SELECT p FROM Person p"),
+		@NamedQuery(name = "Person.findByName", query = "Select p from Person p where p.name=:name") 
+	}
+)
+
 public class Person implements Serializable {
 	private static final long serialVersionUID = 1L;
 
