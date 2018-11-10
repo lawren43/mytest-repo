@@ -9,7 +9,7 @@
 		http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
 
 
-	<context:component-scan base-package="com.journaldev.spring.dao.jpa" />
+	<context:component-scan base-package="cht.hioss.jpatutorial.dao" />
 
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="persistenceUnitName" value="jpa-tutorial-unit"/>

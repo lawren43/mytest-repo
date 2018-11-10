@@ -2,6 +2,7 @@ package cht.hioss.jpatutorial.testcase;
 
 import static org.junit.Assert.*;
 
+import java.lang.reflect.Array;
 import java.util.List;
 
 import org.junit.Before;
@@ -16,12 +17,17 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import cht.hioss.jpatutorial.dao.PersonDAO;
+import cht.hioss.jpatutorial.model.Department;
 import cht.hioss.jpatutorial.model.Person;
 import cht.hioss.jpatutorial.service.PersonService;
 
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
+<<<<<<< HEAD
 @TransactionConfiguration(defaultRollback = false)
+=======
+// @TransactionConfiguration(defaultRollback = false)
+>>>>>>> branch 'master' of https://github.com/lawren43/mytest-repo.git
 public class TestJpa2 {
 
 	private final static Logger logger = LoggerFactory.getLogger(TestJpa2.class);
@@ -37,7 +43,10 @@ public class TestJpa2 {
 	}
 
 	// @Test
+<<<<<<< HEAD
 	// @Transactional
+=======
+>>>>>>> branch 'master' of https://github.com/lawren43/mytest-repo.git
 	public void testDuplicatePerson() {
 
 		try {
@@ -56,11 +65,18 @@ public class TestJpa2 {
 		} catch (Exception e) {
 			logger.error("catch exception: {} ", e);
 		}
+<<<<<<< HEAD
 
+=======
+>>>>>>> branch 'master' of https://github.com/lawren43/mytest-repo.git
 	}
 
+<<<<<<< HEAD
 	@Test
 	// @Transactional
+=======
+	//@Test
+>>>>>>> branch 'master' of https://github.com/lawren43/mytest-repo.git
 	public void testDTO() {
 		logger.info("add p1");
 		Person p1 = new Person();
@@ -100,6 +116,10 @@ public class TestJpa2 {
 	}
 
 	// @Test
+<<<<<<< HEAD
+=======
+	//@Transactional
+>>>>>>> branch 'master' of https://github.com/lawren43/mytest-repo.git
 	public void test2() {
 		Person p1 = new Person();
 		p1.setCountry("Canada");
@@ -118,11 +138,26 @@ public class TestJpa2 {
 
 	}
 
+	// use jpql 
 	@Test
 	public void testFindByNameQuery() {
 		Person p = personService.getPersonByName("Bob");
 
 		logger.info("findByName(bob):" + p.toString());
+	}
+	
+	// select two entities at the same time
+	@Test
+	public void TestQueryJoin2Entities() {
+		List<Object> resultList = personService.findPersonAndDepartment();
+		for (Object result : resultList) {
+			Object[] entities = (Object[])result; 
+			Person person = (Person)entities[0];
+			Department department = (Department)entities[1];
+			
+			logger.info("resultList: " +  person.toString() +", "+ department.toString());
+		}
+		
 	}
 
 }

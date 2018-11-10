@@ -27,5 +27,7 @@ public interface PersonDAO {
 	
 	public Person findByName(String name);
 
-
+	public List<Person> findAllByNameQuery();
+	
+	public List<Object> findPersonAndDepartment();
 }

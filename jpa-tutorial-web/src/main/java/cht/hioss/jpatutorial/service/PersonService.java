@@ -18,4 +18,6 @@ public interface PersonService {
 	/* for test */
 	public void addPersonRollbackByException(Person p);
 	public void addPersonRollbackByApi(Person p);
+	
+	public List<Object> findPersonAndDepartment();
 }
