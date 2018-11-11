@@ -14,6 +14,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,10 +30,10 @@ import cht.hioss.jpatutorial.model.PersonDetail;
 public class TestJPA1 {
 
 	final static Logger logger = LoggerFactory.getLogger(TestJPA1.class);
-	int global_person_id = 0;
+	static int global_person_id = 0;
 	
-	@Before
-	public void setUp() throws Exception {
+	@BeforeClass
+	public static void setUp() throws Exception {
 		
 		logger.info("setUp():============================="); 
 		EntityManagerFactory emFactory = Persistence.createEntityManagerFactory("jpa-tutorial-unit");
@@ -95,7 +96,7 @@ public class TestJPA1 {
 	}
 
 	
-	@Test
+	//@Test
 	public void testQueryFromDepartment() {
 
 		logger.info("testQueryFromDepartment():========================");
@@ -177,6 +178,24 @@ public class TestJPA1 {
 		entityManager.getTransaction().commit();
 		entityManager.close();
 		emFactory.close();
+	}
+	
+	@Test
+	public void testEmptyResult() {
+		logger.info("testEmptyResult():========================");
+		EntityManagerFactory emFactory = Persistence.createEntityManagerFactory("jpa-tutorial-unit");
+
+		EntityManager entityManager = emFactory.createEntityManager();
+		entityManager.getTransaction().begin();
+		
+		Person p = entityManager.find(Person.class, 2555 );
+		
+		entityManager.getTransaction().commit();
+		entityManager.close();
+		emFactory.close();
+		
+		assertNull(p);
+		
 	}
 
 }

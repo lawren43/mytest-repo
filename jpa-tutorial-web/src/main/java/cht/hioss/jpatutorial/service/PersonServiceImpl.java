@@ -2,6 +2,7 @@ package cht.hioss.jpatutorial.service;
 
 import java.util.List;
 
+import javax.persistence.Query;
 import javax.persistence.RollbackException;
 
 import org.slf4j.Logger;
@@ -29,22 +30,8 @@ public class PersonServiceImpl implements PersonService {
 	@Override
 	@Transactional
 	public void addPerson(Person p) {
-		
-		
-		//try {
-		this.personDAO.create(p);
 
-		//logger.info("setRollbackOnly");
-		//TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-		
-		//logger.info("throw runtime exception");
-		//throw new RollbackException("test runtime exception");
-		//}
-		//catch (Exception e) {
-			//logger.info("catch exception: {}", e);
-			//throw e;
-			//TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-		//}
+		this.personDAO.create(p);
 
 	}
 
@@ -85,7 +72,7 @@ public class PersonServiceImpl implements PersonService {
 
 	@Override
 	@Transactional
-	public Person getPersonById(int id) {
+	public Person findById(int id) {
 		return this.personDAO.findOne(id);
 	}
 
@@ -96,16 +83,26 @@ public class PersonServiceImpl implements PersonService {
 		this.personDAO.delete(person);
 	}
 	
-	public Person getPersonByName(String name) {
+	public Person findByName(String name) {
 		Person person = this.personDAO.findByName(name);
 		return person;
 	}
 
 
+	public List<Person> listAllByNativeSql() {
+		return this.personDAO.listAllByNativeSql();
+	}
+	
 	@Override
 	@Transactional
-	public List<Object> findPersonAndDepartment() {
+	public List<Object[]> findPersonAndDepartment() {
 		
 		return personDAO.findPersonAndDepartment();
+	}
+	
+	@Override
+	@Transactional
+	public void initTestData() {
+		personDAO.initTestData();
 	}
 }

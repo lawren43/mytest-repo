@@ -47,13 +47,36 @@ public class PersonDAOImpl<T> extends AbstractJpaDAO<Person> implements PersonDA
 		return personList;
 	}
 	
-	public List<Object> findPersonAndDepartment() {
+	public List<Object[]> findPersonAndDepartment() {
 		Query query = entityManager.createQuery("select p, d from Person p, Department d where p.department = d");
-		List<Object> resultList = query.getResultList();
+		List<Object[]> resultList = query.getResultList();
 		
 		return resultList;
 
 	}
+	
+	public List<Person> listAllByNativeSql() {
+		List<Person> list = entityManager.createNativeQuery("select * from person where department_id is not null", Person.class)
+				.getResultList();
+		return list;
+	}
 
+	public void initTestData() {
+		logger.info("clear person table");
+		Query query = entityManager.createQuery("delete from Person p where p.id > 4");
+		query.executeUpdate();
+		
+		Person p1 = entityManager.find(Person.class, 2);
+		p1.setCountry("Canada");
+		p1.setName("Bob");
+		logger.info("reset person(2):"+p1.toString());
+
+		Person p2 = new Person();
+		p2.setCountry("U.S.");
+		p2.setName("Usher");
+		entityManager.persist(p2);
+		logger.info("add person:"+p2.toString());
+
+	}
 
 }

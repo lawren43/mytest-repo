@@ -1,9 +1,12 @@
 package cht.hioss.jpatutorial.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.*;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The persistent class for the person database table.
@@ -17,9 +20,16 @@ import javax.persistence.*;
 		@NamedQuery(name = "Person.findByName", query = "Select p from Person p where p.name=:name") 
 	}
 )
-
+@NamedNativeQueries(
+	{
+		@NamedNativeQuery(name = "Person.findAllBySQL", query ="SELECT * FROM Person ")
+	}
+)
 public class Person implements Serializable {
 	private static final long serialVersionUID = 1L;
+
+	@Transient
+	private final static Logger logger = LoggerFactory.getLogger(Person.class);
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -40,6 +50,14 @@ public class Person implements Serializable {
 	//@JoinColumn(name="id", referencedColumnName="person_id")
 	private PersonDetail personDetail;
 
+	@Column(name="modify_date")
+	private Date modifyDate;
+	
+	@Version
+	private int version;
+
+	
+	
 	public Person() {
 	}
 
@@ -83,9 +101,34 @@ public class Person implements Serializable {
 		this.personDetail = personDetail;
 	}
 
+
+	public Date getModifyDate() {
+		return modifyDate;
+	}
+
+	public void setModifyDate(Date modifyDate) {
+		this.modifyDate = modifyDate;
+	}
+
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
+	}
+
+	@PreUpdate
+	@PrePersist
+	public void preAddOrUpdate() {
+		this.modifyDate = new Date();
+		logger.info("preAddOrUpdate() update modifyDate to :"+ this.modifyDate);
+	}
+
 	@Override
 	public String toString() {
 		return "Person [id=" + id + ", country=" + country + ", name=" + name + "]";
 	}
 
+	
 }

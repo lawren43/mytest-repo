@@ -29,5 +29,9 @@ public interface PersonDAO {
 
 	public List<Person> findAllByNameQuery();
 	
-	public List<Object> findPersonAndDepartment();
+	public List<Object[]> findPersonAndDepartment();
+	
+	public List<Person> listAllByNativeSql();
+	
+	public void initTestData();
 }
