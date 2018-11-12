@@ -105,4 +105,10 @@ public class PersonServiceImpl implements PersonService {
 	public void initTestData() {
 		personDAO.initTestData();
 	}
+	
+	@Override
+	@Transactional
+	public Person findByNameAndLock(String name) {
+		return personDAO.findByNameAndLock(name);
+	}
 }

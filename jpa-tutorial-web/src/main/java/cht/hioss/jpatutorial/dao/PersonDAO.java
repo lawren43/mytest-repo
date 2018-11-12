@@ -34,4 +34,6 @@ public interface PersonDAO {
 	public List<Person> listAllByNativeSql();
 	
 	public void initTestData();
+	
+	public Person findByNameAndLock(String name);
 }

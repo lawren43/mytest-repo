@@ -2,6 +2,8 @@ package cht.hioss.jpatutorial.service;
 
 import java.util.List;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import cht.hioss.jpatutorial.model.Person;
 
 
@@ -22,4 +24,6 @@ public interface PersonService {
 	public void initTestData();
 	
 	public List<Person> listAllByNativeSql();
+	
+	public Person findByNameAndLock(String name);
 }

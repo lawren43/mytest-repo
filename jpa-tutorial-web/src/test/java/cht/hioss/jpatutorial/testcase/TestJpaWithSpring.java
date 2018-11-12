@@ -164,7 +164,7 @@ public class TestJpaWithSpring {
 
 	}
 	 
-	 @Test
+	 //@Test
 	 public void testFindAllByNativeSQL() {
 		 logger.info("testFindAllByNativeSQL():================================================");
 		 
@@ -174,6 +174,15 @@ public class TestJpaWithSpring {
 			 Department d = p.getDepartment();
 			 logger.info("list2: "+d.toString());
 		 }
+	 }
+	 
+	 @Test
+	 public void testLock() {
+		 logger.info("testLock():================================================");
+		 
+		 Person p = personService.findByNameAndLock("Bob");
+		 logger.info("list: "+p.toString());
+		 
 	 }
 
 }

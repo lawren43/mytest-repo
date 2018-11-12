@@ -38,20 +38,6 @@ CREATE SEQUENCE public.seq_person_id;
 /* create table Person */
 CREATE TABLE person
 (
-   id integer DEFAULT nextval('seq_person_id'), 
-   name character varying(30), 
-   country character varying(30),
-   department_id integer,
-   CONSTRAINT person_pk PRIMARY KEY (id),
-   CONSTRAINT department_id_fk FOREIGN KEY (department_id)
-      REFERENCES department (id) 
-) 
-WITH (
-  OIDS = FALSE
-)
-;
-REATE TABLE person
-(
   id integer NOT NULL DEFAULT nextval('seq_person_id'),
   name character varying(30),
   country character varying(30),

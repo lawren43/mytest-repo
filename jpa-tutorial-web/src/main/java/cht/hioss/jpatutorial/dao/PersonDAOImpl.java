@@ -5,8 +5,10 @@ package cht.hioss.jpatutorial.dao;
 
 import java.util.List;
 
+import javax.persistence.LockModeType;
 import javax.persistence.Query;
 
+import org.hibernate.LockMode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
@@ -31,8 +33,8 @@ public class PersonDAOImpl<T> extends AbstractJpaDAO<Person> implements PersonDA
 	public Person findByName(String name) {
 		Query query = entityManager.createNamedQuery("Person.findByName");
 		query.setParameter("name", name);
+
 		Person person = (Person) query.getSingleResult();
-		
 		return person;
 	}
 
@@ -76,7 +78,18 @@ public class PersonDAOImpl<T> extends AbstractJpaDAO<Person> implements PersonDA
 		p2.setName("Usher");
 		entityManager.persist(p2);
 		logger.info("add person:"+p2.toString());
+		
+	}
 
+	public Person findByNameAndLock(String name) {
+		Query query = entityManager.createNamedQuery("Person.findByName");
+		query.setParameter("name", name);
+
+		logger.info("query.setLockMode(LockModeType.PESSIMISTIC_WRITE)" );
+		query.setLockMode(LockModeType.PESSIMISTIC_WRITE);
+
+		Person person = (Person) query.getSingleResult();
+		return person;
 	}
 
 }
