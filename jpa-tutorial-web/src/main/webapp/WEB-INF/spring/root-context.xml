@@ -12,7 +12,6 @@
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 
-	<context:component-scan base-package="cht.hioss.jpatutorial.model" />
 	<context:component-scan base-package="cht.hioss.jpatutorial.service" />
 
 <!--  

@@ -6,6 +6,7 @@ import java.lang.reflect.Array;
 import java.util.List;
 
 import javax.persistence.RollbackException;
+import javax.security.auth.login.AccountExpiredException;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -89,7 +90,7 @@ public class TestJpaWithSpring {
 
 	}
 
-	//@Test(expected = RollbackException.class)
+	// @Test(expected = RollbackException.class)
 	public void testRollbackByException() {
 		logger.info("testRollbackByException():=====================================");
 
@@ -99,8 +100,6 @@ public class TestJpaWithSpring {
 		personService.addPersonRollbackByException(p1);
 
 	}
-	
-	
 
 	public void testRollbackByApi() {
 		logger.info("testRollbackByException():=====================================");
@@ -111,12 +110,7 @@ public class TestJpaWithSpring {
 		personService.addPersonRollbackByApi(p1);
 
 	}
-	
-	//@Test(expected = EmptyResultDataAccessException.class)
-	public void testEmptyResultExcetpion() {
-		logger.info("testEmptyResultException():================================================");
-		Person p = personService.findByName("John Doe");
-	}
+
 
 	// @Test
 	public void testAdd() {
@@ -150,12 +144,12 @@ public class TestJpaWithSpring {
 	}
 
 	// select two entities at the same time
-	//@Test
+	// @Test
 	public void testQueryJoin2Entities() {
 		logger.info("TestQueryJoin2Entities():================================================");
 		List<Object[]> resultList = personService.findPersonAndDepartment();
 		for (Object[] result : resultList) {
-			
+
 			Person person = (Person) result[0];
 			Department department = (Department) result[1];
 
@@ -163,26 +157,97 @@ public class TestJpaWithSpring {
 		}
 
 	}
-	 
-	 //@Test
-	 public void testFindAllByNativeSQL() {
-		 logger.info("testFindAllByNativeSQL():================================================");
-		 
-		 List<Person> persons = personService.listAllByNativeSql();
-		 for (Person p: persons) {
-			 logger.info("list: "+p.toString());
-			 Department d = p.getDepartment();
-			 logger.info("list2: "+d.toString());
-		 }
-	 }
-	 
-	 @Test
-	 public void testLock() {
-		 logger.info("testLock():================================================");
-		 
-		 Person p = personService.findByNameAndLock("Bob");
-		 logger.info("list: "+p.toString());
-		 
-	 }
+
+	// @Test
+	public void testFindAllByNativeSQL() {
+		logger.info("testFindAllByNativeSQL():================================================");
+
+		List<Person> persons = personService.listAllByNativeSql();
+		for (Person p : persons) {
+			logger.info("list: " + p.toString());
+			Department d = p.getDepartment();
+			logger.info("list2: " + d.toString());
+		}
+	}
+
+	// @Test
+	public void testLock() {
+		logger.info("testLock():================================================");
+
+		Person p = personService.findByNameAndLock("Bob");
+		logger.info("list: " + p.toString());
+
+	}
+
+	//@Test(expected = EmptyResultDataAccessException.class)
+	public void testEmptyResultExcetpion() {
+		logger.info("testEmptyResultException():================================================");
+		Person p = personService.findByName("John Doe");
+	}
+
+
+	// if unchecked exception occurs, transaction will roll back automatically
+	//@Test
+	public void testUncheckedException() {
+		logger.info("testUncheckedException():================================================");
+		Person p1 = new Person();
+		p1.setCountry("Japan");
+		p1.setName("Kaido");
+		logger.info("person(before add):" + p1.toString());
+		try {
+			personService.addPersonWithUncheckedException(p1);
+		}
+		catch (Exception e) {
+			logger.info("catch unchecked exception:"+ e.toString());
+		}
+		logger.info("person(after add):" + p1.toString());
+
+		Person p2 = personService.findById(p1.getId());
+		
+		assertNull(p2);
+	}
+
+
+	// if checked exception occurs, transaction will still commit
+	@Test
+	public void testCheckedException() {
+		logger.info("testCheckedException():================================================");
+		Person p1 = new Person();
+		p1.setCountry("France");
+		p1.setName("Louis");
+		logger.info("person(before add):" + p1.toString());
+		try {
+			personService.addPersonWithCheckedException(p1);
+		}
+		catch(Exception e) {
+			logger.info("catch checked exception:"+ e.toString());
+		}
+		logger.info("person(after add):" + p1.toString());
+		
+		Person p2 = personService.findById(p1.getId());
+		
+		assertNotNull(p2);
+	}
+
+	// if checked exception occurs, transaction will still commit
+	@Test
+	public void testCheckedExceptionAdvice() {
+		logger.info("testCheckedExceptionAdvice():================================================");
+		Person p1 = new Person();
+		p1.setCountry("Thai");
+		p1.setName("Yai");
+		logger.info("person(before add):" + p1.toString());
+		try {
+			personService.addPersonWithCheckedExceptionAdvice(p1);
+		}
+		catch(Exception e) {
+			logger.info("catch checked exception:"+ e.toString());
+		}
+		logger.info("person(after add):" + p1.toString());
+		
+		Person p2 = personService.findById(p1.getId());
+		
+		assertNull(p2);
+	}
 
 }

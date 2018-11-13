@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.Query;
 import javax.persistence.RollbackException;
+import javax.security.auth.login.AccountExpiredException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -72,13 +73,13 @@ public class PersonServiceImpl implements PersonService {
 
 	@Override
 	@Transactional
-	public Person findById(int id) {
+	public Person findById(long id) {
 		return this.personDAO.findOne(id);
 	}
 
 	@Override
 	@Transactional
-	public void removePerson(int id) {
+	public void removePerson(long id) {
 		Person person = this.personDAO.findOne(id);
 		this.personDAO.delete(person);
 	}
@@ -111,4 +112,23 @@ public class PersonServiceImpl implements PersonService {
 	public Person findByNameAndLock(String name) {
 		return personDAO.findByNameAndLock(name);
 	}
+	
+	@Transactional
+	public void addPersonWithUncheckedException(Person p) {
+		personDAO.create(p);
+		throw new RuntimeException();
+	}
+
+	@Transactional
+	public void addPersonWithCheckedException(Person p) throws AccountExpiredException {
+		personDAO.create(p);
+		throw new AccountExpiredException();
+	}
+
+	@Transactional
+	public void addPersonWithCheckedExceptionAdvice(Person p) throws AccountExpiredException {
+		personDAO.create(p);
+		throw new AccountExpiredException();
+	}
+
 }

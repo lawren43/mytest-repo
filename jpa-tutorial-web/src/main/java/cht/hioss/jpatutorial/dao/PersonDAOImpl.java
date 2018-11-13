@@ -68,7 +68,7 @@ public class PersonDAOImpl<T> extends AbstractJpaDAO<Person> implements PersonDA
 		Query query = entityManager.createQuery("delete from Person p where p.id > 4");
 		query.executeUpdate();
 		
-		Person p1 = entityManager.find(Person.class, 2);
+		Person p1 = entityManager.find(Person.class, (long)2);
 		p1.setCountry("Canada");
 		p1.setName("Bob");
 		logger.info("reset person(2):"+p1.toString());

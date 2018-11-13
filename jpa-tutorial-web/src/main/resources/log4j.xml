@@ -35,12 +35,11 @@
 	<appender-ref ref="File" />
  -->
  
-
 	<logger name="org.springframework.test">
 		<level value="error" />
 		<appender-ref ref="Console" />
 	</logger>
-
+ 
 	<logger name="org.hibernate">
 		<level value="error" />
 		<appender-ref ref="Console" />
