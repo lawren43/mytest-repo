@@ -72,7 +72,7 @@ public class TestJpaWithSpring {
 	}
 
 	// any change occurs beyond transaction scope won't persist to database
-	@Test
+	//@Test
 	public void testTransactionScope() {
 		logger.info("testTransactionScope():============================================");
 		Person p1 = new Person();
@@ -104,12 +104,13 @@ public class TestJpaWithSpring {
 
 	}
 
+	//@Test
 	public void testRollbackByApi() {
 		logger.info("testRollbackByException():=====================================");
 
 		Person p1 = new Person();
-		p1.setCountry("Canada");
-		p1.setName("Merrick");
+		p1.setCountry("U.S.");
+		p1.setName("Elvis");
 		personService.addPersonRollbackByApi(p1);
 
 	}
@@ -233,7 +234,7 @@ public class TestJpaWithSpring {
 	}
 
 	// if checked exception occurs, transaction will still commit
-	//@Test
+	@Test
 	public void testCheckedExceptionAdvice() {
 		logger.info("testCheckedExceptionAdvice():================================================");
 		Person p1 = new Person();
@@ -254,7 +255,7 @@ public class TestJpaWithSpring {
 	}
 
 	// entity association (like one-to-many or many-to-one) may lose beyond transaction scope  
-	@Test(expected = org.hibernate.LazyInitializationException.class)
+	//@Test(expected = org.hibernate.LazyInitializationException.class)
 	public void testTransactionScopeAssociation() {
 		logger.info("testTransactionScopeAssociation():============================================");
 		Person p1 = personService.findById(2);
@@ -265,7 +266,7 @@ public class TestJpaWithSpring {
 	}
 
 	// one should use DTO to transfer data instead of entity object
-	@Test
+	//@Test
 	public void testDTO() {
 		logger.info("testDTO():================================================");
 		List<PersonDTO> persons = personService.listPersonDTO();
