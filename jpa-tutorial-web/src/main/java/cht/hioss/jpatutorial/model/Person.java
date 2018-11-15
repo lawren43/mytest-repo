@@ -122,7 +122,7 @@ public class Person implements Serializable {
 	@PrePersist
 	public void preAddOrUpdate() {
 		this.modifyDate = new Date();
-		logger.info("preAddOrUpdate() update modifyDate to :"+ this.modifyDate);
+		logger.info("preAddOrUpdate() set modifyDate to :"+ this.modifyDate);
 	}
 
 	@Override

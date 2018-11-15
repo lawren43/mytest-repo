@@ -22,6 +22,7 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import cht.hioss.jpatutorial.dao.PersonDAO;
+import cht.hioss.jpatutorial.dto.PersonDTO;
 import cht.hioss.jpatutorial.model.Department;
 import cht.hioss.jpatutorial.model.Person;
 import cht.hioss.jpatutorial.service.PersonService;
@@ -70,25 +71,27 @@ public class TestJpaWithSpring {
 
 	}
 
-	// @Test
-	public void testDTO() {
-		logger.info("testDTO():============================================");
-		logger.info("add p1");
+	// any change occurs beyond transaction scope won't persist to database
+	@Test
+	public void testTransactionScope() {
+		logger.info("testTransactionScope():============================================");
 		Person p1 = new Person();
 		p1.setCountry("Canada");
 		p1.setName("Merrick");
 		personService.addPerson(p1);
+		logger.info("add p1: " + p1.toString());
 
-		p1.setName("Merrick2");
-		logger.info("change p1:" + p1.toString());
+		p1.setName("Merrick 2");
+		logger.info("change p1: " + p1.toString());
 
-		logger.info("add p2");
-		Person p2 = new Person();
-		p2.setCountry("Canada");
-		p2.setName("Flix");
-		personService.addPerson(p2);
+		Person p2 = personService.findById(p1.getId());
+		
+		logger.info("find p2: " + p2.toString());
+		
+		assertNotEquals(p1.getName(), p2.getName());
 
 	}
+
 
 	// @Test(expected = RollbackException.class)
 	public void testRollbackByException() {
@@ -209,7 +212,7 @@ public class TestJpaWithSpring {
 
 
 	// if checked exception occurs, transaction will still commit
-	@Test
+	//@Test
 	public void testCheckedException() {
 		logger.info("testCheckedException():================================================");
 		Person p1 = new Person();
@@ -230,7 +233,7 @@ public class TestJpaWithSpring {
 	}
 
 	// if checked exception occurs, transaction will still commit
-	@Test
+	//@Test
 	public void testCheckedExceptionAdvice() {
 		logger.info("testCheckedExceptionAdvice():================================================");
 		Person p1 = new Person();
@@ -248,6 +251,29 @@ public class TestJpaWithSpring {
 		Person p2 = personService.findById(p1.getId());
 		
 		assertNull(p2);
+	}
+
+	// entity association (like one-to-many or many-to-one) may lose beyond transaction scope  
+	@Test(expected = org.hibernate.LazyInitializationException.class)
+	public void testTransactionScopeAssociation() {
+		logger.info("testTransactionScopeAssociation():============================================");
+		Person p1 = personService.findById(2);
+		logger.info("find p1: " + p1.toString());
+		
+		Department d = p1.getDepartment();
+		logger.info(d.toString());
+	}
+
+	// one should use DTO to transfer data instead of entity object
+	@Test
+	public void testDTO() {
+		logger.info("testDTO():================================================");
+		List<PersonDTO> persons = personService.listPersonDTO();
+		
+		for (PersonDTO dto: persons) {
+			logger.info("find PersonDTO: {}", dto.toString() );
+		}
+		assertNotEquals(0, persons.size());
 	}
 
 }

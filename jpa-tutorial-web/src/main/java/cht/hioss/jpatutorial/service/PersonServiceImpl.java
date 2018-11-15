@@ -1,6 +1,7 @@
 package cht.hioss.jpatutorial.service;
 
 import java.util.List;
+import java.util.Vector;
 
 import javax.persistence.Query;
 import javax.persistence.RollbackException;
@@ -14,7 +15,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import cht.hioss.jpatutorial.dao.PersonDAO;
+import cht.hioss.jpatutorial.dto.PersonDTO;
+import cht.hioss.jpatutorial.model.Department;
 import cht.hioss.jpatutorial.model.Person;
+import cht.hioss.jpatutorial.model.PersonDetail;
 
 
 @Service
@@ -131,4 +135,31 @@ public class PersonServiceImpl implements PersonService {
 		throw new AccountExpiredException();
 	}
 
+	@Transactional
+	public List<PersonDTO> listPersonDTO() {
+		List<Person> persons = personDAO.findAll();
+		Vector<PersonDTO> dtoList = new Vector<PersonDTO>();
+		
+		for (Person p : persons) {
+			PersonDTO dto = new PersonDTO();
+			dto.setId(p.getId());
+			dto.setCountry(p.getCountry());
+			dto.setName(p.getName());
+			dto.setModifyDate(p.getModifyDate());
+			dto.setVersion(p.getVersion());
+			Department d = p.getDepartment();
+			if (d != null) {
+				dto.setDepartmentId(p.getDepartment().getId());
+				dto.setDepartmentName(p.getDepartment().getName());
+			}
+			PersonDetail pd = p.getPersonDetail();
+			if (pd != null) {
+				dto.setPersonDetailTitle(pd.getTitle());
+			}
+			
+			dtoList.add(dto);
+		}
+		
+		return dtoList;
+	}
 }

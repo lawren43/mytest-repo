@@ -42,7 +42,7 @@ CREATE TABLE person
   name character varying(30),
   country character varying(30),
   department_id integer,
-  modify_date time with time zone,
+  modify_date timestamp with time zone,
   version integer DEFAULT 0,
   CONSTRAINT person_pk PRIMARY KEY (id),
   CONSTRAINT department_id_fk FOREIGN KEY (department_id)

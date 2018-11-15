@@ -6,6 +6,7 @@ import javax.security.auth.login.AccountExpiredException;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import cht.hioss.jpatutorial.dto.PersonDTO;
 import cht.hioss.jpatutorial.model.Person;
 
 
@@ -24,6 +25,8 @@ public interface PersonService {
 	public void addPersonRollbackByApi(Person p);
 	public List<Object[]> findPersonAndDepartment();
 	public void initTestData();
+	
+	public List<PersonDTO> listPersonDTO();
 	
 	public List<Person> listAllByNativeSql();
 	
