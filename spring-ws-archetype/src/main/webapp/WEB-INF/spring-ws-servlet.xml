@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:sws="http://www.springframework.org/schema/web-services"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context-4.0.xsd
+	http://www.springframework.org/schema/web-services 
+	http://www.springframework.org/schema/web-services/web-services-2.0.xsd
+	http://www.springframework.org/schema/mvc  
+	http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+	
+	<!--
+	動態生成wsdl檔案url http://host:port/spring-ws-archetype/webservice/queryService/queryContry.wsdl 
+	id值是wsdl檔案路徑 
+	-->
+	<sws:dynamic-wsdl id="queryContry"
+		portTypeName="query" 
+		locationUri="/webservice/queryService/"
+		targetNamespace="http://j2eeweb.wannshan.cn/hr/schemas">
+		<!--hr.xsd路徑 -->
+		<sws:xsd location="/WEB-INF/hr.xsd" />
+	</sws:dynamic-wsdl>
+	
+	<!--靜態wsdl 指定檔案 一般現有動態生成，最後上生產考到靜態檔案中去 -->
+	<!--<sws:static-wsdl id="queryContry" location="/WEB-INF/queryContry.wsdl"/> -->
+
+<!-- 
+	<sws:annotation-driven />
+ -->
+ 
+</beans>

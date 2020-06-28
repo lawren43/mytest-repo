@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+xmlns:hr="http://j2eeweb.wannshan.cn/hr/schemas"
+elementFormDefault="qualified"
+targetNamespace="http://j2eeweb.wannshan.cn/hr/schemas">
+	
+	<!--按約定，每個operationNameRequest格式的element每個對應一個operation，同時operationNameRequest是請求引數元素名稱 -->
+	<!--同理 operationNameResponse 格式的element是對應一個operation的返回引數 -->
+	<xs:element name="saveCountryRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="country" type="hr:country" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="saveCountryResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="name" type="xs:string" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<!--getCountry操作，請求返回值定義 -->
+	<xs:element name="getCountryRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="name" type="xs:string" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="getCountryResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="country" type="hr:country" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="country">
+		<xs:sequence>
+			<xs:element name="name" type="xs:string" />
+			<xs:element name="population" type="xs:int" />
+			<xs:element name="capital" type="xs:string" />
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>
