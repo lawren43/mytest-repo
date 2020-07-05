@@ -26,6 +26,20 @@
 			<artifactId>wsdl4j</artifactId>
 			<version>1.6.3</version>
 		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>4.1.6.RELEASE</version>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.11</version>
+			<scope>test</scope>
+		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -39,6 +53,7 @@
 				</configuration>
 			</plugin>
 
+<!--  
 			<plugin>
 				<groupId>org.jvnet.jaxb2.maven2</groupId>
 				<artifactId>maven-jaxb2-plugin</artifactId>
@@ -52,7 +67,7 @@
 				</executions>
 				<configuration>
 					<schemaLanguage>WSDL</schemaLanguage>
-					<!--pojo存放包名 -->
+					
 					<generatePackage>cn.wannshan.j2ee.ws.dto</generatePackage>
 					<schemas>
 						<schema>
@@ -61,6 +76,7 @@
 					</schemas>
 				</configuration>
 			</plugin>
+-->
 
 		</plugins>
 	</build>

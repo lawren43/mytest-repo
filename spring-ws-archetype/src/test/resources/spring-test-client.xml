@@ -12,21 +12,6 @@
 	http://www.springframework.org/schema/web-services/web-services-2.0.xsd
 	http://www.springframework.org/schema/mvc  
 	http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
-	
-	<!--
-	動態生成wsdl檔案url http://localhost:8080/spring-ws-archetype/webservice/queryService/queryContry.wsdl 
-	id值是wsdl檔案路徑 
-	-->
-	<sws:dynamic-wsdl id="queryContry"
-		portTypeName="query" 
-		locationUri="/webservice/queryService/"
-		targetNamespace="http://j2eeweb.wannshan.cn/hr/schemas">
-		<!--hr.xsd路徑 -->
-		<sws:xsd location="/WEB-INF/hr.xsd" />
-	</sws:dynamic-wsdl>
-	
-	<!--靜態wsdl 指定檔案 一般現有動態生成，最後上生產考到靜態檔案中去 -->
-	<!--<sws:static-wsdl id="queryContry" location="/WEB-INF/queryContry.wsdl"/> -->
 
     <!-- webservice實現類 endpoint 所在包  -->
     <context:component-scan base-package="cn.wannshan.j2ee.ws"></context:component-scan>
