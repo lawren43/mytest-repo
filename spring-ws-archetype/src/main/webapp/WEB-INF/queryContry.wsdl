@@ -1,102 +1,105 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch="http://j2eeweb.wannshan.cn/hr/schemas" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://j2eeweb.wannshan.cn/hr/schemas" targetNamespace="http://j2eeweb.wannshan.cn/hr/schemas">
-  <wsdl:types>
-    <xs:schema xmlns:hr="http://j2eeweb.wannshan.cn/hr/schemas" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://j2eeweb.wannshan.cn/hr/schemas">
-	
-	<!--按約定，每個operationNameRequest格式的element每個對應一個operation，同時operationNameRequest是請求引數元素名稱 -->
-	<!--同理 operationNameResponse 格式的element是對應一個operation的返回引數 -->
-	<xs:element name="saveCountryRequest">
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element name="country" type="hr:country"/>
-			</xs:sequence>
-		</xs:complexType>
-	</xs:element>
-	<xs:element name="saveCountryResponse">
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element name="name" type="xs:string"/>
-			</xs:sequence>
-		</xs:complexType>
-	</xs:element>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch="http://j2eeweb.wannshan.cn/hr/schemas"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://j2eeweb.wannshan.cn/hr/schemas" targetNamespace="http://j2eeweb.wannshan.cn/hr/schemas">
+	<wsdl:types>
+		<xs:schema xmlns:hr="http://j2eeweb.wannshan.cn/hr/schemas" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+			targetNamespace="http://j2eeweb.wannshan.cn/hr/schemas">
 
-	<!--getCountry操作，請求返回值定義 -->
-	<xs:element name="getCountryRequest">
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element name="name" type="xs:string"/>
-			</xs:sequence>
-		</xs:complexType>
-	</xs:element>
-	<xs:element name="getCountryResponse">
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element name="country" type="hr:country"/>
-			</xs:sequence>
-		</xs:complexType>
-	</xs:element>
-	<xs:complexType name="country">
-		<xs:sequence>
-			<xs:element name="name" type="xs:string"/>
-			<xs:element name="population" type="xs:int"/>
-			<xs:element name="capital" type="xs:string"/>
-		</xs:sequence>
-	</xs:complexType>
-</xs:schema>
-  </wsdl:types>
-  <wsdl:message name="getCountryRequest">
-    <wsdl:part element="tns:getCountryRequest" name="getCountryRequest">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="saveCountryResponse">
-    <wsdl:part element="tns:saveCountryResponse" name="saveCountryResponse">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="getCountryResponse">
-    <wsdl:part element="tns:getCountryResponse" name="getCountryResponse">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="saveCountryRequest">
-    <wsdl:part element="tns:saveCountryRequest" name="saveCountryRequest">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:portType name="query">
-    <wsdl:operation name="getCountry">
-      <wsdl:input message="tns:getCountryRequest" name="getCountryRequest">
-    </wsdl:input>
-      <wsdl:output message="tns:getCountryResponse" name="getCountryResponse">
-    </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="saveCountry">
-      <wsdl:input message="tns:saveCountryRequest" name="saveCountryRequest">
-    </wsdl:input>
-      <wsdl:output message="tns:saveCountryResponse" name="saveCountryResponse">
-    </wsdl:output>
-    </wsdl:operation>
-  </wsdl:portType>
-  <wsdl:binding name="querySoap11" type="tns:query">
-    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-    <wsdl:operation name="getCountry">
-      <soap:operation soapAction=""/>
-      <wsdl:input name="getCountryRequest">
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output name="getCountryResponse">
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="saveCountry">
-      <soap:operation soapAction=""/>
-      <wsdl:input name="saveCountryRequest">
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output name="saveCountryResponse">
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
-  </wsdl:binding>
-  <wsdl:service name="queryService">
-    <wsdl:port binding="tns:querySoap11" name="querySoap11">
-      <soap:address location="/webservice/queryService/"/>
-    </wsdl:port>
-  </wsdl:service>
+			<!--按約定，每個operationNameRequest格式的element每個對應一個operation，同時operationNameRequest是請求引數元素名稱 -->
+			<!--同理 operationNameResponse 格式的element是對應一個operation的返回引數 -->
+			<xs:element name="saveCountryRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="country" type="hr:country" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="saveCountryResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="name" type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+
+			<!--getCountry操作，請求返回值定義 -->
+			<xs:element name="getCountryRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="name" type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="getCountryResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="country" type="hr:country" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:complexType name="country">
+				<xs:sequence>
+					<xs:element name="name" type="xs:string" />
+					<xs:element name="population" type="xs:int" />
+					<xs:element name="capital" type="xs:string" />
+				</xs:sequence>
+			</xs:complexType>
+		</xs:schema>
+	</wsdl:types>
+	<wsdl:message name="getCountryRequest">
+		<wsdl:part element="tns:getCountryRequest" name="getCountryRequest">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="saveCountryResponse">
+		<wsdl:part element="tns:saveCountryResponse" name="saveCountryResponse">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="getCountryResponse">
+		<wsdl:part element="tns:getCountryResponse" name="getCountryResponse">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="saveCountryRequest">
+		<wsdl:part element="tns:saveCountryRequest" name="saveCountryRequest">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:portType name="query">
+		<wsdl:operation name="getCountry">
+			<wsdl:input message="tns:getCountryRequest" name="getCountryRequest">
+			</wsdl:input>
+			<wsdl:output message="tns:getCountryResponse" name="getCountryResponse">
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="saveCountry">
+			<wsdl:input message="tns:saveCountryRequest" name="saveCountryRequest">
+			</wsdl:input>
+			<wsdl:output message="tns:saveCountryResponse" name="saveCountryResponse">
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="querySoap11" type="tns:query">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="getCountry">
+			<soap:operation soapAction="" />
+			<wsdl:input name="getCountryRequest">
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="getCountryResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="saveCountry">
+			<soap:operation soapAction="" />
+			<wsdl:input name="saveCountryRequest">
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="saveCountryResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="queryService">
+		<wsdl:port binding="tns:querySoap11" name="querySoap11">
+			<soap:address location="/webservice/queryService/" />
+		</wsdl:port>
+	</wsdl:service>
 </wsdl:definitions>
