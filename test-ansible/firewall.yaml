@@ -1,4 +1,4 @@
-- hosts: all
+- hosts: host-name
   remote_user: lawren
   tasks:
   - name: Ensure SSH can pass the firewall
@@ -9,3 +9,13 @@
       immediate: True
     become: True
 
+- hosts: host-ip
+  remote_user: lawren
+  tasks:
+  - name: Ensure SSH can pass the firewall
+    firewalld:
+      service: ssh
+      state: enabled
+      permanent: True
+      immediate: True
+    become: True

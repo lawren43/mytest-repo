@@ -1,0 +1,14 @@
+- hosts: host-name
+  remote_user: lawren
+  tasks:
+  - name: copy local file 'file1.txt' to remote hosts
+    copy:
+      src: file1.txt
+      dest: /tmp/
+      owner: lawren
+      group: matthew
+      mode: '0666'
+      backup: yes
+    become: true
+      
+
