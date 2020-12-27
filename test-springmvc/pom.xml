@@ -22,7 +22,7 @@
 		<jsp.version>2.2</jsp.version>
 		<jstl.version>1.2</jstl.version>
 		<servlet.version>2.5</servlet.version>
-		<spring.version>4.3.19.RELEASE</spring.version>
+		<spring.version>5.3.1</spring.version>
 		<hibernate.version>4.3.11.Final</hibernate.version>
 	</properties>
 
@@ -119,13 +119,13 @@
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>1.7.25</version>
 		</dependency>
-<!-- 
+
 		<dependency>
 			<groupId>commons-logging</groupId>
 			<artifactId>commons-logging</artifactId>
 			<version>1.2</version>
 		</dependency>
- -->
+
  
 <dependency>
 	<groupId>org.springframework</groupId>
@@ -173,7 +173,7 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.11</version>
+			<version>4.13.1</version>
 		</dependency>
 		<dependency>
 			<groupId>axis</groupId>
@@ -266,6 +266,15 @@
 				<artifactId>maven-war-plugin</artifactId>
 				<version>2.6</version>
 			</plugin>
+
+    <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <version>1.4.1</version>
+        <configuration>
+            <rules><dependencyConvergence/></rules>
+        </configuration>
+    </plugin>
 		</plugins>
 	</build>
 </project>
